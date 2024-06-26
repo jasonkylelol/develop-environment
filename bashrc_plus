@@ -1,7 +1,7 @@
 
 /usr/sbin/sshd -D
 
-export GOPATH="/root/.cache/go" GO111MODULE=on GOPROXY=https://goproxy.cn,direct GOPRIVATE=gitlab.apulis.com.cn
+export GOPATH="/root/.cache/go" GO111MODULE=on GOPROXY=https://goproxy.cn,direct
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
 alias github-cfg-user="git config user.name jasonkylelol;\
