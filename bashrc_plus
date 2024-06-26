@@ -1,0 +1,19 @@
+
+/usr/sbin/sshd -D
+
+export GOPATH="/root/.cache/go" GO111MODULE=on GOPROXY=https://goproxy.cn,direct GOPRIVATE=gitlab.apulis.com.cn
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+
+alias github-cfg-user="git config user.name jasonkylelol;\
+    git config user.email 26690662+jasonkylelol@users.noreply.github.com; echo \"done\""
+alias set-http-proxy="export https_proxy=http://192.168.4.89:7890 \
+    http_proxy=http://192.168.4.89:7890 all_proxy=socks5://192.168.4.89:7891; echo \"done\""
+
+alias ll='ls -ltrh'
+alias gl='git pull'
+alias gst='git status'
+alias gb='git branch'
+alias gba='git branch -a'
+alias gco='git checkout'
+
+chmod 600 /root/.ssh/id_ed25519
