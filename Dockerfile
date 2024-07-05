@@ -2,7 +2,7 @@ FROM nvcr.io/nvidia/cuda:12.2.2-cudnn8-devel-ubuntu22.04
 
 ADD sources.list /etc/apt/sources.list
 RUN apt update && apt upgrade -y && apt install -y apt-utils build-essential ca-certificates \
-	curl wget vim net-tools openssh-server ffmpeg libsm6 libxext6
+    curl wget vim net-tools openssh-server ffmpeg libsm6 libxext6
 ADD vimrc /root/.vimrc
 ADD pip.conf /root/.pip/pip.conf
 ADD condarc /root/.condarc
@@ -14,7 +14,7 @@ RUN /root/miniconda3/bin/conda install -y -c tartansandal conda-bash-completion
 RUN rm -f /root/miniconda3/miniconda_install.sh
 
 COPY go1.22.4.linux-amd64.tar.gz go1.22.4.linux-amd64.tar.gz
-RUN  rm -rf /usr/local/go && tar -C /usr/local -xzf go1.22.4.linux-amd64.tar.gz
+RUN rm -rf /usr/local/go && tar -C /usr/local -xzf go1.22.4.linux-amd64.tar.gz
 RUN rm -f go1.22.4.linux-amd64.tar.gz
 
 RUN mkdir /var/run/sshd
@@ -25,7 +25,7 @@ RUN sed -i 's@session    required     pam_loginuid.so@session    optional     pa
 EXPOSE 22
 
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt update && apt install -y git tzdata locales
+RUN apt update && apt install -y tzdata locales
 RUN ln -sf /usr/share/zoneinfo/Asia/Hong_Kong /etc/localtime && \
     echo "Asia/Hong_Kong" > /etc/timezone && \
     dpkg-reconfigure -f noninteractive tzdata
@@ -40,6 +40,8 @@ RUN rm -f bashrc_plus
 RUN echo 'Welcome to the Gangsta Server! Stay cool, amigo! 😎' > /etc/motd && \
     chmod -x /etc/update-motd.d/*
 
-RUN apt update && apt install -y protobuf-compiler
+RUN apt update && apt install -y git protobuf-compiler tree zip unzip
+
+ADD revive.toml /root/revive.toml
 
 WORKDIR /root
