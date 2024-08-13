@@ -2,7 +2,7 @@ FROM nvcr.io/nvidia/cuda:12.2.2-cudnn8-devel-ubuntu22.04
 
 ADD sources.list /etc/apt/sources.list
 RUN apt update && apt upgrade -y && apt install -y apt-utils build-essential ca-certificates \
-    curl wget vim net-tools openssh-server ffmpeg libsm6 libxext6
+	curl wget vim net-tools openssh-server ffmpeg libsm6 libxext6
 ADD vimrc /root/.vimrc
 ADD pip.conf /root/.pip/pip.conf
 ADD condarc /root/.condarc
@@ -25,7 +25,7 @@ RUN sed -i 's@session    required     pam_loginuid.so@session    optional     pa
 EXPOSE 22
 
 ENV DEBIAN_FRONTEND=noninteractive
-RUN apt update && apt install -y tzdata locales
+RUN apt update && apt install -y tzdata locales man-db
 RUN ln -sf /usr/share/zoneinfo/Asia/Hong_Kong /etc/localtime && \
     echo "Asia/Hong_Kong" > /etc/timezone && \
     dpkg-reconfigure -f noninteractive tzdata
@@ -40,8 +40,9 @@ RUN rm -f bashrc_plus
 RUN echo 'Welcome to the Gangsta Server! Stay cool, amigo! 😎' > /etc/motd && \
     chmod -x /etc/update-motd.d/*
 
-RUN apt update && apt install -y git protobuf-compiler tree zip unzip
-
 ADD revive.toml /root/revive.toml
+ADD gitconfig /root/.gitconfig
+
+RUN apt update && apt install -y git protobuf-compiler tree zip unzip telnet
 
 WORKDIR /root
