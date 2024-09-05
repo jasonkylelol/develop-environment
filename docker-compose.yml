@@ -1,0 +1,30 @@
+name: develop-env
+
+services:
+  develop-env:
+    restart: always
+    image: develop-env:cuda12.2.2-cudnn8-devel-ubuntu22.04
+    command: ["/root/.cache/start.sh"]
+    hostname: dev
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    environment:
+      HF_ENDPOINT: "https://hf-mirror.com"
+    ports:
+      - "32208:22"
+      - "38060:8060"
+      - "38061:8061"
+    volumes:
+      - /data/lm/runtime/cache:/root/.cache
+      - /data/lm/runtime/vscode-server:/root/.vscode-server
+      - /data/lm/runtime/miniconda3/envs:/root/miniconda3/envs
+      - /data/lm/runtime/nltk_data:/root/nltk_data
+      - /data/lm/runtime/ssh:/root/.ssh
+      - /data/lm/github:/root/github
+      - /data/lm/huggingface/models:/root/huggingface/models
+
